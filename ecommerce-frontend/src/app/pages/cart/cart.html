@@ -1,0 +1,52 @@
+<h2>My Cart</h2>
+
+<div *ngFor="let item of cartItems">
+
+    <h3>{{ item.productName }}</h3>
+
+    <p>Price : ₹{{ item.price }}</p>
+
+    <p>Quantity : {{ item.quantity }}</p>
+
+    <button (click)="remove(item.cartItemId)">
+        Remove
+    </button>
+
+    <hr>
+
+</div>
+
+<h2>Total : ₹{{ getTotalPrice() }}</h2>
+
+<button (click)="placeOrder()">
+    Place Order
+</button>
+<div class="container">
+
+  <h2 class="title">🛒 My Cart</h2>
+
+  <div class="cart-card" *ngFor="let item of cartItems">
+
+    <h3>{{ item.productName }}</h3>
+
+    <p><strong>Price:</strong> ₹{{ item.price }}</p>
+
+    <p><strong>Quantity:</strong> {{ item.quantity }}</p>
+
+    <p><strong>Subtotal:</strong> ₹{{ item.price * item.quantity }}</p>
+
+    <button (click)="remove(item.cartItemId)">
+      Remove
+    </button>
+
+  </div>
+
+  <div class="cart-summary">
+    <h2>Total: ₹{{ getTotalPrice() }}</h2>
+
+    <button (click)="placeOrder()">
+      Place Order
+    </button>
+  </div>
+
+</div>

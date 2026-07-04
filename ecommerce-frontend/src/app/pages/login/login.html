@@ -1,0 +1,31 @@
+
+<div class="login-container">
+
+  <div class="login-card">
+
+    <h2>🛒 ShopEase</h2>
+
+    <h3>Welcome Back!</h3>
+
+    <input
+      type="email"
+      [(ngModel)]="email"
+      placeholder="Enter your email">
+
+    <input
+      type="password"
+      [(ngModel)]="password"
+      placeholder="Enter your password">
+
+    <button (click)="login()">
+      Login
+    </button>
+
+    <p>
+      New user?
+      <a routerLink="/register">Register here</a>
+    </p>
+
+  </div>
+
+</div>

@@ -1,0 +1,43 @@
+.container {
+    width: 90%;
+    margin: 30px auto;
+}
+
+.title {
+    text-align: center;
+    color: #1976d2;
+    margin-bottom: 20px;
+}
+
+.order-count {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+.order-card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: transform 0.2s;
+}
+
+.order-card:hover {
+    transform: translateY(-5px);
+}
+
+.order-card h3 {
+    color: #1976d2;
+    margin-bottom: 10px;
+}
+
+.order-card p {
+    margin: 8px 0;
+}
+
+.status {
+    color: green;
+    font-weight: bold;
+}

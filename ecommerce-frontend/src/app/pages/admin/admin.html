@@ -1,0 +1,55 @@
+<h2>Admin Dashboard</h2>
+
+<label>1. Product Name</label><br>
+<input
+    type="text"
+    placeholder=""
+    [(ngModel)]="product.name">
+
+<br><br>
+
+<label>2. Description</label><br>
+<input
+    type="text"
+    placeholder=""
+    [(ngModel)]="product.description">
+
+<br><br>
+
+<label>3. Price</label><br>
+<input
+    type="number"
+    placeholder="Price"
+    [(ngModel)]="product.price">
+
+<br><br>
+
+<label>4. Items Left</label><br>
+<input
+    type="number"
+    placeholder="Stock"
+    [(ngModel)]="product.stock">
+
+<br><br>
+
+<button (click)="saveProduct()">
+    Save Product
+</button>
+
+<hr>
+
+<div *ngFor="let p of products">
+
+    <b>{{p.name}}</b>
+
+    ₹{{p.price}}
+
+    <button (click)="editProduct(p)">
+        Edit
+    </button>
+
+    <button (click)="deleteProduct(p.id!)">
+    Delete
+</button>
+
+</div>

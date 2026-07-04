@@ -1,0 +1,27 @@
+<nav class="navbar">
+
+  <div class="logo">
+    🛒 ShopEase
+  </div>
+
+  <div class="nav-links">
+
+    <a routerLink="/">Home</a>
+
+    <a *ngIf="isLoggedIn()" routerLink="/products">Products</a>
+
+    <a *ngIf="isLoggedIn()" routerLink="/cart">Cart</a>
+
+    <a *ngIf="isLoggedIn()" routerLink="/orders">Orders</a>
+
+    <a *ngIf="isLoggedIn()" routerLink="/admin">Admin</a>
+
+    <a *ngIf="!isLoggedIn()" routerLink="/login">Login</a>
+
+    <a *ngIf="!isLoggedIn()" routerLink="/register">Register</a>
+
+    <a *ngIf="isLoggedIn()" (click)="logout()">Logout</a>
+
+  </div>
+
+</nav>

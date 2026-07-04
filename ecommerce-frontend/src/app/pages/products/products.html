@@ -1,0 +1,44 @@
+<div class="container">
+
+  <h2 class="title">🛍️ Our Products</h2>
+
+  <div class="search-bar">
+    <input
+      type="text"
+      placeholder="Search products..."
+      [(ngModel)]="searchText">
+
+    <button (click)="searchProducts()">
+      Search
+    </button>
+  </div>
+
+  <hr>
+
+  <div class="product-container">
+
+    <div class="product-card" *ngFor="let product of products">
+
+      <h3>{{ product.name }}</h3>
+
+      <p>{{ product.description }}</p>
+
+      <h4>₹{{ product.price }}</h4>
+
+      <p>Stock: {{ product.stock }}</p>
+
+      <button (click)="addToCart(product.id!)">
+        Add to Cart
+      </button>
+
+    </div>
+
+  </div>
+
+  <hr>
+
+  <button class="cart-btn" routerLink="/cart">
+    🛒 View Cart
+  </button>
+
+</div>
