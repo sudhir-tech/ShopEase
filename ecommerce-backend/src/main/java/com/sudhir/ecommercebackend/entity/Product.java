@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "products")
-public class Product {
+public class Product implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

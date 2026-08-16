@@ -2,15 +2,18 @@ package com.sudhir.ecommercebackend.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.sudhir.ecommercebackend.service.ProductService;
-import org.springframework.data.domain.Sort;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 import com.sudhir.ecommercebackend.dto.ProductDTO;
 import com.sudhir.ecommercebackend.entity.Product;
 import com.sudhir.ecommercebackend.repository.ProductRepository;
@@ -18,6 +21,8 @@ import com.sudhir.ecommercebackend.repository.ProductRepository;
 @Service
 public class ProductService {
 
+    private static final Logger logger =
+            LoggerFactory.getLogger(ProductService.class);
 
     @Autowired
     private ProductRepository productRepository;
@@ -31,15 +36,22 @@ public class ProductService {
 
         return productRepository.findAll();
     }
+
+    @Cacheable(value = "products", key = "#id")
     public Product getProductById(Long id) {
+
+        logger.info("Fetching product {} from MySQL", id);
 
         return productRepository.findById(id).orElse(null);
     }
+
+    @CacheEvict(value = "products", key = "#id")
     public Product updateProduct(Long id, Product updatedProduct) {
 
-        Product existingProduct = productRepository.findById(id).orElse(null);
+        Product existingProduct =
+                productRepository.findById(id).orElse(null);
 
-        if(existingProduct != null) {
+        if (existingProduct != null) {
 
             existingProduct.setName(updatedProduct.getName());
             existingProduct.setDescription(updatedProduct.getDescription());
@@ -51,12 +63,15 @@ public class ProductService {
 
         return null;
     }
+
+    @CacheEvict(value = "products", key = "#id")
     public String deleteProduct(Long id) {
 
         productRepository.deleteById(id);
 
         return "Product deleted successfully";
     }
+
     public List<ProductDTO> getAllProductDTOs() {
 
         List<Product> products =
@@ -65,7 +80,7 @@ public class ProductService {
         List<ProductDTO> dtoList =
                 new ArrayList<>();
 
-        for(Product product : products) {
+        for (Product product : products) {
 
             ProductDTO dto =
                     new ProductDTO(
@@ -77,44 +92,38 @@ public class ProductService {
 
         return dtoList;
     }
-    public Page<Product> getProductsWithPagination(int page,int size) {
+
+    public Page<Product> getProductsWithPagination(int page, int size) {
 
         Pageable pageable =
                 PageRequest.of(page, size);
 
         return productRepository.findAll(pageable);
     }
-    public List<Product> searchProducts(
-            String name) {
+
+    public List<Product> searchProducts(String name) {
 
         return productRepository.findByNameContainingIgnoreCase(name);
     }
+
     @GetMapping("/search")
-    
-    public List<Product> sortProducts(
-            String field) {
+    public List<Product> sortProducts(String field) {
 
         return productRepository.findAll(
                 Sort.by(field));
     }
+
     public Page<Product> getProductsWithPaginationAndSorting(
-
             int page,
-
             int size,
-
             String field) {
 
         Pageable pageable =
-
                 PageRequest.of(
                         page,
                         size,
                         Sort.by(field));
 
-        return productRepository
-                .findAll(pageable);
+        return productRepository.findAll(pageable);
     }
-    
-    
 }
