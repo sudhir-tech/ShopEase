@@ -10,7 +10,7 @@ import org.springframework.data.domain.Page;
 import com.sudhir.ecommercebackend.dto.ProductDTO;
 import com.sudhir.ecommercebackend.entity.Product;
 import com.sudhir.ecommercebackend.service.ProductService;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import jakarta.validation.Valid;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -40,7 +40,7 @@ public class ProductController {
     }
     @PutMapping("/{id}")
     public Product updateProduct(@PathVariable Long id,
-                                 @RequestBody Product product) {
+                             @Valid @RequestBody Product product) {
 
         return productService.updateProduct(id, product);
     }
