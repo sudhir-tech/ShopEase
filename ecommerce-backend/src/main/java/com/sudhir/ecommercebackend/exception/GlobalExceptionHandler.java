@@ -1,8 +1,5 @@
 package com.sudhir.ecommercebackend.exception;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,39 +10,31 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    
-
-    public Map<String, String> handleValidationExceptions(
+    public ErrorResponse handleValidationExceptions(
             MethodArgumentNotValidException ex) {
 
-        Map<String, String> errors = new HashMap<>();
+        String message = ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .findFirst()
+                .map(error -> error.getField() + ": " + error.getDefaultMessage())
+                .orElse("Validation failed");
 
-        ex.getBindingResult().getFieldErrors()
-                .forEach(error -> {
-
-                    errors.put(
-                            error.getField(),
-                            error.getDefaultMessage()
-                    );
-                });
-
-        return errors;
+        return new ErrorResponse(
+                HttpStatus.BAD_REQUEST.value(),
+                message
+        );
     }
+
     @ResponseStatus(HttpStatus.NOT_FOUND)
-
     @ExceptionHandler(ResourceNotFoundException.class)
-
-    public Map<String, String> handleResourceNotFound(
+    public ErrorResponse handleResourceNotFound(
             ResourceNotFoundException ex) {
 
-        Map<String, String> error =
-                new HashMap<>();
-
-        error.put("message",
-                ex.getMessage());
-
-        return error;
+        return new ErrorResponse(
+                HttpStatus.NOT_FOUND.value(),
+                ex.getMessage()
+        );
     }
 }

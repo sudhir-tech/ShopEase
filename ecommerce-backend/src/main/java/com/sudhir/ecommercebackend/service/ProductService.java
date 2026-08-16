@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import com.sudhir.ecommercebackend.dto.ProductDTO;
 import com.sudhir.ecommercebackend.entity.Product;
+import com.sudhir.ecommercebackend.exception.ResourceNotFoundException;
 import com.sudhir.ecommercebackend.repository.ProductRepository;
 
 @Service
@@ -42,7 +43,7 @@ public class ProductService {
 
         logger.info("Fetching product {} from MySQL", id);
 
-        return productRepository.findById(id).orElse(null);
+        return productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
     }
 
     @CacheEvict(value = "products", key = "#id")
