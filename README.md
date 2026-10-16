@@ -15,6 +15,10 @@ ShopEase is a full-stack e-commerce application built using Angular, Spring Boot
 - Stock Management
 - Responsive Angular UI
 - RESTful API Integration
+* Product catalog
+* Shopping cart
+* Order management
+* API documentation
 
 ## 🛠 Tech Stack
 
