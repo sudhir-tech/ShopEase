@@ -100,6 +100,14 @@ ShopEase
 - User profile management
 - Order tracking
 - Deployment to cloud
+  
+## Development Roadmap
+
+- [ ] Improve input validation and exception handling
+- [ ] Add unit tests for service-layer logic
+- [ ] Document REST API endpoints
+- [ ] Improve logging and error responses
+- [ ] Add integration tests for database operations
 
 ## 👨‍💻 Author
 
